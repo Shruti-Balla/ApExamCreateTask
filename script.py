@@ -16,6 +16,19 @@ letters_typed = 0
 
 
 
+
+
+# begin game - make the first letter blue
+def begin_game():
+    global index
+    global letter
+
+    index = 0
+    turtles[0].clear()
+    turtles[0].color("blue")
+    turtles[0].write(characters[0], align="center", font=("Arial", 30, "normal", "underline"))
+    letter = characters[0]
+
 # puts writers and characters at corresponding indexes
 for string in strings:
     index = 0
@@ -37,20 +50,9 @@ for string in strings:
             initial_x = -125
         else:'''
         initial_x += 20
+    begin_game()
     characters.clear()
     turtles.clear()
-
-
-# begin game - make the first letter blue
-def begin_game():
-    global index
-    global letter
-
-    index = 0
-    turtles[0].clear()
-    turtles[0].color("blue")
-    turtles[0].write(characters[0], align="center", font=("Arial", 30, "normal", "underline"))
-    letter = characters[0]
 
 def update_letter(correct_letter, letter_typed):
     global index
@@ -67,6 +69,8 @@ def update_letter(correct_letter, letter_typed):
             turtles[index].write(correct_letter, align="center", font=("Arial", 30, "normal"))
             letters_typed += 1
             index += 1
+
+            # clear the existing text
             if index > len(string) - 1:
                 for writer in turtles:
                     writer.clear()
@@ -192,8 +196,6 @@ def trigger_update_space():
 
 def trigger_update_period(): 
     update_letter(letter, ".")
-
-begin_game()
 
 
 s = turtle.Screen()
