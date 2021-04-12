@@ -1,11 +1,14 @@
 import turtle
 from time import time
 import random
+from random_words import RandomWords
 
 # initialize variables
+rw = RandomWords()
+words = rw.random_words(count=4)
 turtles = []
 #string = "the quick brown fox jumps over the lazy dog."
-strings = ["hi", "bye", "good", "great", "oracle"]
+strings = words
 random.shuffle(strings)
 characters = []
 index = 0
