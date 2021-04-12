@@ -18,9 +18,6 @@ letter = ""
 letters_typed = 0
 
 
-
-
-
 # begin game - make the first letter blue
 def begin_game():
     global index
@@ -31,10 +28,10 @@ def begin_game():
     turtles[0].color("blue")
     turtles[0].write(characters[0], align="center", font=("Arial", 30, "normal", "underline"))
     letter = characters[0]
+    cleared = False
 
 # puts writers and characters at corresponding indexes
-for string in strings:
-    index = 0
+def initialize(string):
     for character in string:
         writer = turtle.Turtle()
         turtles.append(writer)
@@ -45,7 +42,10 @@ for string in strings:
 
     # writes a character at the corresponding index of the writer
     for writer in turtles:
+        print(turtles)
         writer.goto(initial_x, initial_y) # change location
+        print(len(characters))
+        print(index)
         writer.write(characters[index], align="center", font=("Arial", 30, "normal"))
         index += 1
         '''if index == 30:
@@ -53,14 +53,16 @@ for string in strings:
             initial_x = -125
         else:'''
         initial_x += 20
-    begin_game()
-    characters.clear()
-    turtles.clear()
+    begin_game() # writes word
+    characters.clear() # clears the character list
+
 
 def update_letter(correct_letter, letter_typed):
     global index
     global letters_typed
     global letter
+    print(index)
+    print(len(turtles))
 
     # if the character is not a letter, lower() won't work
     try:
@@ -77,6 +79,8 @@ def update_letter(correct_letter, letter_typed):
             if index > len(string) - 1:
                 for writer in turtles:
                     writer.clear()
+                turtles.clear() # clears the writers
+                cleared = True
             else:
                 letter = characters[index]
                 turtles[index].clear()
