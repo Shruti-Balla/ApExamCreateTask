@@ -7,7 +7,7 @@ from random_words import RandomWords
 rw = RandomWords()
 words = rw.random_words(count=4)
 turtles = []
-#string = "the quick brown fox jumps over the lazy dog."
+string = ""
 strings = words
 random.shuffle(strings)
 characters = []
@@ -16,12 +16,14 @@ initial_x = -275
 initial_y = 50
 letter = ""
 letters_typed = 0
+cleared = True
 
 
 # begin game - make the first letter blue
 def begin_game():
     global index
     global letter
+    global cleared
 
     index = 0
     turtles[0].clear()
@@ -31,8 +33,16 @@ def begin_game():
     cleared = False
 
 # puts writers and characters at corresponding indexes
-def initialize(string):
-    for character in string:
+def initialize(new_string):
+    global string
+    global initial_x
+    global initial_y
+    global index
+
+    index = 0
+
+    for character in new_string:
+        string = new_string
         writer = turtle.Turtle()
         turtles.append(writer)
         characters.append(character)
@@ -54,47 +64,50 @@ def initialize(string):
         else:'''
         initial_x += 20
     begin_game() # writes word
-    characters.clear() # clears the character list
+    
 
 
 def update_letter(correct_letter, letter_typed):
     global index
     global letters_typed
     global letter
+    global cleared
     print(index)
     print(len(turtles))
 
     # if the character is not a letter, lower() won't work
-    try:
+    '''try:'''
         
-        # if the correct letter is the letter typed
-        if correct_letter.lower() == letter_typed:
-            turtles[index].clear()
-            turtles[index].color("green")
-            turtles[index].write(correct_letter, align="center", font=("Arial", 30, "normal"))
-            letters_typed += 1
-            index += 1
+    # if the correct letter is the letter typed
+    if correct_letter.lower() == letter_typed:
+        turtles[index].clear()
+        turtles[index].color("green")
+        turtles[index].write(correct_letter, align="center", font=("Arial", 30, "normal"))
+        letters_typed += 1
+        index += 1
 
-            # clear the existing text
-            if index > len(string) - 1:
-                for writer in turtles:
-                    writer.clear()
-                turtles.clear() # clears the writers
-                cleared = True
-            else:
-                letter = characters[index]
-                turtles[index].clear()
-                turtles[index].color("blue")
-                turtles[index].write(letter, align="center", font=("Arial", 30, "normal"))
-            
-        # if the correct letter is not the letter typed
+        # clear the existing text
+        if index > len(string) - 1:
+            for writer in turtles:
+                writer.clear()
+            turtles.clear() # clears the writers
+            characters.clear() # clears the character list
+            cleared = True
+            next_word()
         else:
+            letter = characters[index]
             turtles[index].clear()
-            turtles[index].color("red")
-            turtles[index].write(correct_letter, align="center", font=("Arial", 30, "normal", "underline", "bold"))
-            letters_typed += 1
+            turtles[index].color("blue")
+            turtles[index].write(letter, align="center", font=("Arial", 30, "normal"))
+            
+    # if the correct letter is not the letter typed
+    else:
+        turtles[index].clear()
+        turtles[index].color("red")
+        turtles[index].write(correct_letter, align="center", font=("Arial", 30, "normal", "underline", "bold"))
+        letters_typed += 1
 
-    except:
+    '''except:
 
         # if the correct letter is the letter typed
         if correct_letter == letter_typed:
@@ -106,6 +119,7 @@ def update_letter(correct_letter, letter_typed):
             if index > len(string) - 1:
                 for writer in turtles:
                     writer.clear()
+                turtles.clear()
             else:
                 letter = characters[index]
                 turtles[index].clear()
@@ -117,8 +131,16 @@ def update_letter(correct_letter, letter_typed):
             turtles[index].clear()
             turtles[index].color("red")
             turtles[index].write(correct_letter, align="center", font=("Arial", 30, "normal", "underline", "bold"))
-            letters_typed += 1
+            letters_typed += 1'''
 
+def next_word():
+    i = 0
+    while cleared:
+        print(cleared)
+        initialize(strings[i])
+        i += 1
+
+next_word()
 
 def trigger_update_a():   
     update_letter(letter, "a")
@@ -198,11 +220,11 @@ def trigger_update_y():
 def trigger_update_z(): 
     update_letter(letter, "z")
 
-def trigger_update_space(): 
+'''def trigger_update_space(): 
     update_letter(letter, " ")
 
 def trigger_update_period(): 
-    update_letter(letter, ".")
+    update_letter(letter, ".")'''
 
 
 s = turtle.Screen()
@@ -232,7 +254,7 @@ s.onkeypress(trigger_update_w, "w")
 s.onkeypress(trigger_update_x, "x")
 s.onkeypress(trigger_update_y, "y")
 s.onkeypress(trigger_update_z, "z")
-s.onkeypress(trigger_update_space, " ")
-s.onkeypress(trigger_update_period, ".")
+'''s.onkeypress(trigger_update_space, " ")
+s.onkeypress(trigger_update_period, ".")'''
 s.listen()
 s.mainloop()
