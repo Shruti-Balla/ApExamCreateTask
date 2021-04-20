@@ -6,9 +6,11 @@ import time
 import random
 from random_words import RandomWords
 
+s = turtle.Screen()
+
 # initialize variables
 rw = RandomWords()
-words = rw.random_words(count=10)
+words = rw.random_words(count=1000)
 turtles = []
 string = ""
 strings = words
@@ -35,8 +37,16 @@ def begin_game():
     letter = characters[0]
     cleared = False
 
-# create a timer
+# create a timer - CHANGE IT!!!!!!!!!!
+s.ontimer(update_countdown, t=1000)
 
+# display countdown
+timer_turtle = turtle.Turtle
+seconds = 0
+def update_countdown():
+    timer_turtle.goto(350, 350)
+    timer_turtle.write("Time: {}".format(seconds), font=("Arial", 30, "normal", "underline"))
+    
 
 # puts writers and characters at corresponding indexes
 def initialize(new_string):
@@ -192,7 +202,6 @@ def trigger_update_z():
 
 
 # trigger the next letter with each letter of the alphabet
-s = turtle.Screen()
 s.onkeypress(trigger_update_a, "a")
 s.onkeypress(trigger_update_b, "b")
 s.onkeypress(trigger_update_c, "c")
