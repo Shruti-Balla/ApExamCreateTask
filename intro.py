@@ -6,7 +6,7 @@ import winsound
 
 wn = turtle.Screen()
 wn.setup(600,600)
-wn.bgpic("sky.jpg")
+wn.bgpic("sky.gif")
 # message = "Hello"
 
 #obj = typeWriter.EasyInput()
