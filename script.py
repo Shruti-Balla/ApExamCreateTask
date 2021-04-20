@@ -1,5 +1,8 @@
+#-----TYPING GAME NAME TBD-----
+
+# import modules turtle, time, random, RandomWords
 import turtle
-from time import time
+import time
 import random
 from random_words import RandomWords
 
@@ -31,6 +34,9 @@ def begin_game():
     turtles[0].write(characters[0], align="center", font=("Arial", 30, "normal", "underline"))
     letter = characters[0]
     cleared = False
+
+# create a timer
+
 
 # puts writers and characters at corresponding indexes
 def initialize(new_string):
