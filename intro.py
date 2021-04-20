@@ -4,6 +4,11 @@ from time import sleep
 from easyTypeWriter import typeWriter
 import winsound
 
+wn = turtle.Screen()
+wn.setup(600,600)
+wn.bgpic("sky.jpg")
+# message = "Hello"
+
 #obj = typeWriter.EasyInput()
 words = "Hello! Welcome to our typing game! :P"
 '''
