@@ -5,7 +5,7 @@ from random_words import RandomWords
 
 # initialize variables
 rw = RandomWords()
-words = rw.random_words(count=4)
+words = rw.random_words(count=10)
 turtles = []
 string = ""
 strings = words
@@ -52,38 +52,26 @@ def initialize(new_string):
 
     # writes a character at the corresponding index of the writer
     for writer in turtles:
-        print(turtles)
         writer.goto(initial_x, initial_y) # change location
-        print(len(characters))
-        print(index)
         writer.write(characters[index], align="center", font=("Arial", 30, "normal"))
         index += 1
-        '''if index == 30:
-            initial_y = -50
-            initial_x = -125
-        else:'''
-        initial_x += 20
+        initial_x += 25
+    initial_x = random.randint(-300, 300)
+    initial_y = random.randint(-300, 300)
     begin_game() # writes word
     
 
 
 def update_letter(correct_letter, letter_typed):
     global index
-    global letters_typed
     global letter
     global cleared
-    print(index)
-    print(len(turtles))
-
-    # if the character is not a letter, lower() won't work
-    '''try:'''
-        
+   
     # if the correct letter is the letter typed
     if correct_letter.lower() == letter_typed:
         turtles[index].clear()
         turtles[index].color("green")
         turtles[index].write(correct_letter, align="center", font=("Arial", 30, "normal"))
-        letters_typed += 1
         index += 1
 
         # clear the existing text
@@ -105,36 +93,11 @@ def update_letter(correct_letter, letter_typed):
         turtles[index].clear()
         turtles[index].color("red")
         turtles[index].write(correct_letter, align="center", font=("Arial", 30, "normal", "underline", "bold"))
-        letters_typed += 1
 
-    '''except:
-
-        # if the correct letter is the letter typed
-        if correct_letter == letter_typed:
-            turtles[index].clear()
-            turtles[index].color("green")
-            turtles[index].write(correct_letter, align="center", font=("Arial", 30, "normal"))
-            letters_typed += 1
-            index += 1
-            if index > len(string) - 1:
-                for writer in turtles:
-                    writer.clear()
-                turtles.clear()
-            else:
-                letter = characters[index]
-                turtles[index].clear()
-                turtles[index].color("blue")
-                turtles[index].write(letter, align="center", font=("Arial", 30, "normal"))
-
-        # if the correct letter is not the letter typed
-        else:
-            turtles[index].clear()
-            turtles[index].color("red")
-            turtles[index].write(correct_letter, align="center", font=("Arial", 30, "normal", "underline", "bold"))
-            letters_typed += 1'''
-
+# move on to the next word in the list
+i = 0
 def next_word():
-    i = 0
+    global i
     while cleared:
         print(cleared)
         initialize(strings[i])
@@ -142,6 +105,7 @@ def next_word():
 
 next_word()
 
+# function for updating each letter
 def trigger_update_a():   
     update_letter(letter, "a")
     
@@ -220,13 +184,8 @@ def trigger_update_y():
 def trigger_update_z(): 
     update_letter(letter, "z")
 
-'''def trigger_update_space(): 
-    update_letter(letter, " ")
 
-def trigger_update_period(): 
-    update_letter(letter, ".")'''
-
-
+# trigger the next letter with each letter of the alphabet
 s = turtle.Screen()
 s.onkeypress(trigger_update_a, "a")
 s.onkeypress(trigger_update_b, "b")
@@ -254,7 +213,7 @@ s.onkeypress(trigger_update_w, "w")
 s.onkeypress(trigger_update_x, "x")
 s.onkeypress(trigger_update_y, "y")
 s.onkeypress(trigger_update_z, "z")
-'''s.onkeypress(trigger_update_space, " ")
-s.onkeypress(trigger_update_period, ".")'''
+
+# listen for keyboard press and wait until user closes out of the tab
 s.listen()
 s.mainloop()
