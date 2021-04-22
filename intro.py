@@ -11,8 +11,8 @@ sky =('sky.gif')
 wn.bgpic(sky)
 # message = "Hello"
 
-#obj = typeWriter.EasyInput()
-#swords = "Hello! Welcome to our typing game! :P"
+obj = typeWriter.EasyInput()
+words = "Hello! Welcome to our typing game! :P"
 
 '''for char in words:
     sleep(0)
