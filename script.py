@@ -7,6 +7,8 @@ import random
 from random_words import RandomWords
 
 s = turtle.Screen()
+s.setup(600,600)
+s.bgpic('sky.gif')
 
 # initialize variables
 rw = RandomWords()
@@ -17,13 +19,13 @@ strings = words
 random.shuffle(strings)
 characters = []
 index = 0
-initial_x = -275
-initial_y = 50
+initial_x = random.randint(-300, 10)
+initial_y = random.randint(-300, 10)
 letter = ""
-letters_typed = 0
+words_typed = 0
 cleared = True
 
-
+print(initial_x, initial_y)
 # begin game - make the first letter blue
 def begin_game():
     global index
@@ -37,15 +39,37 @@ def begin_game():
     letter = characters[0]
     cleared = False
 
-# create a timer - CHANGE IT!!!!!!!!!!
-s.ontimer(update_countdown, t=1000)
+
 
 # display countdown
-timer_turtle = turtle.Turtle
-seconds = 0
+timer_turtle = turtle.Turtle()
+main = turtle.Turtle()
+main.hideturtle()
+main.penup()
+main.goto(125, 200)
+main.pendown()
+main.write("Time: ", font=("Times New Roman", 30, "normal"))
+timer_turtle.hideturtle()
+timer_turtle.color("Red")
+timer_turtle.penup()
+timer_turtle.goto(225, 200)
+timer_turtle.pendown()
+seconds = 120
+
 def update_countdown():
-    timer_turtle.goto(350, 350)
-    timer_turtle.write("Time: {}".format(seconds), font=("Arial", 30, "normal", "underline"))
+    global seconds
+    timer_turtle.clear()
+    timer_turtle.write(str(seconds), font=("Times New Roman", 30, "normal"))
+    seconds -= 1
+    if seconds == 0:
+        pass # Trigger Game Over screen
+    else:
+        s.ontimer(update_countdown, t=1000)
+
+    
+
+# create a timer - CHANGE IT!!!!!!!!!!
+s.ontimer(update_countdown, t=1000)
     
 
 # puts writers and characters at corresponding indexes
@@ -72,8 +96,8 @@ def initialize(new_string):
         writer.write(characters[index], align="center", font=("Arial", 30, "normal"))
         index += 1
         initial_x += 25
-    initial_x = random.randint(-300, 300)
-    initial_y = random.randint(-300, 300)
+    initial_x = random.randint(-300, 10)
+    initial_y = random.randint(-300, 10)
     begin_game() # writes word
     
 
@@ -82,6 +106,7 @@ def update_letter(correct_letter, letter_typed):
     global index
     global letter
     global cleared
+    global 
    
     # if the correct letter is the letter typed
     if correct_letter.lower() == letter_typed:
@@ -90,13 +115,14 @@ def update_letter(correct_letter, letter_typed):
         turtles[index].write(correct_letter, align="center", font=("Arial", 30, "normal"))
         index += 1
 
-        # clear the existing text
+        # clear the existing text if word is done
         if index > len(string) - 1:
             for writer in turtles:
                 writer.clear()
             turtles.clear() # clears the writers
             characters.clear() # clears the character list
             cleared = True
+            words_typed += 1
             next_word()
         else:
             letter = characters[index]
