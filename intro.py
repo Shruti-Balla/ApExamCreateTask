@@ -13,11 +13,7 @@ wn.bgpic(sky)
 
 #obj = typeWriter.EasyInput()
 #swords = "Hello! Welcome to our typing game! :P"
-'''
-obj.setEnterAudioPath("C:/Users/astro/Downloads/word_game_AP.py/ding3.wav")
-obj.setKeyboardAudioPath("C:/Users/astro/Downloads/word_game_AP.py/keyhee.wav")
-x = obj.takeInput(True , words)
-'''
+
 '''for char in words:
     sleep(0)
     sys.stdout.write(char)
