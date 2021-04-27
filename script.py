@@ -24,8 +24,9 @@ initial_y = random.randint(-300, 10)
 letter = ""
 words_typed = 0
 cleared = True
+gameover = False
 
-print(initial_x, initial_y)
+
 # begin game - make the first letter blue
 def begin_game():
     global index
@@ -39,6 +40,21 @@ def begin_game():
     letter = characters[0]
     cleared = False
 
+# game over screen
+def game_over():
+
+    # writes game over
+    message = turtle.Turtle()
+    s.clear()
+    s.bgpic('sky.gif')
+    message.write("GAME OVER!", align="center", font=("Times New Roman", 70, "normal"))
+
+    # displays total words typed
+    message.goto(0, -100)
+    message.write("You typed a grand total of " + str(words_typed) + " words!", align="center", font=("Times New Roman", 20, "normal"))
+
+    # play again button
+    
 
 
 # display countdown
@@ -54,15 +70,16 @@ timer_turtle.color("Red")
 timer_turtle.penup()
 timer_turtle.goto(225, 200)
 timer_turtle.pendown()
-seconds = 120
+seconds = 10
 
 def update_countdown():
     global seconds
     timer_turtle.clear()
     timer_turtle.write(str(seconds), font=("Times New Roman", 30, "normal"))
     seconds -= 1
-    if seconds == 0:
-        pass # Trigger Game Over screen
+    if seconds == -1:
+        gameover = True
+        game_over()
     else:
         s.ontimer(update_countdown, t=1000)
 
@@ -92,6 +109,9 @@ def initialize(new_string):
 
     # writes a character at the corresponding index of the writer
     for writer in turtles:
+        if gameover == True:
+            s.clear()
+            s.bgpic('sky.gif')
         writer.goto(initial_x, initial_y) # change location
         writer.write(characters[index], align="center", font=("Arial", 30, "normal"))
         index += 1
@@ -106,7 +126,7 @@ def update_letter(correct_letter, letter_typed):
     global index
     global letter
     global cleared
-    global 
+    global words_typed
    
     # if the correct letter is the letter typed
     if correct_letter.lower() == letter_typed:
