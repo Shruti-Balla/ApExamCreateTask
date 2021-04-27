@@ -3,6 +3,7 @@ import sys
 from time import sleep
 from easyTypeWriter import typeWriter
 import winsound
+#sound credit goes to harshnative on github
 
 wn = turtle.Screen()
 wn.setup(600,600)
