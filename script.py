@@ -10,6 +10,8 @@ s = turtle.Screen()
 s.setup(600,600)
 s.bgpic('sky.gif')
 
+s.addshape('cloud.gif')
+
 # initialize variables
 rw = RandomWords()
 words = rw.random_words(count=1000)
@@ -42,6 +44,7 @@ def begin_game():
 
 # game over screen
 def game_over():
+    global i
 
     # writes game over
     message = turtle.Turtle()
@@ -50,11 +53,16 @@ def game_over():
     message.write("GAME OVER!", align="center", font=("Times New Roman", 70, "normal"))
 
     # displays total words typed
-    message.goto(0, -100)
+    message.goto(0, -50)
     message.write("You typed a grand total of " + str(words_typed) + " words!", align="center", font=("Times New Roman", 20, "normal"))
 
     # play again button
-    
+    cloud = turtle.Turtle()
+    cloud.shape("cloud.gif")
+    cloud.penup()
+    cloud.goto(0, -150)
+    i = 0
+    cloud.onclick(next_word)
 
 
 # display countdown
