@@ -14,10 +14,10 @@ wn.bgpic(sky)
 obj = typeWriter.EasyInput()
 words = "Hello! Welcome to our typing game! :P"
 
-'''for char in words:
+for char in words:
     sleep(0)
     sys.stdout.write(char)
     sys.stdout.flush()
-    winsound.PlaySound('keyhee.wav', winsound.SND_FILENAME)'''
+    winsound.PlaySound('keyhee.wav', winsound.SND_FILENAME)
 
 wn.mainloop()
