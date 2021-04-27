@@ -1,5 +1,4 @@
 import turtle
-from PIL import ImageTk, Image
 import sys
 from time import sleep
 from easyTypeWriter import typeWriter
