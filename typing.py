@@ -19,11 +19,11 @@ turtle.goto(-200, 0)
 
 for char in words:
     index += 1
-    sleep(0.1)
+    sleep(0.02)
     turtle.pendown()
-    turtle.write(char, align="center", font=("Times New Roman", 35, "normal"))
+    turtle.write(char, align="center", font=("Times New Roman", 25, "normal"))
     turtle.penup()
-    turtle.goto(turtle.xcor() + 24, turtle.ycor())
+    turtle.goto(turtle.xcor() + 20, turtle.ycor())
     if index == 14:
       turtle.goto(-275,-50)
     sys.stdout.flush()
@@ -39,13 +39,19 @@ turtle.goto(-200, 0)
 
 for char in words:
     index += 1
-    sleep(0.1)
+    sleep(0.02)
     turtle.pendown()
-    turtle.write(char, align="center", font=("Times New Roman", 35, "normal"))
+    turtle.write(char, align="center", font=("Times New Roman", 25, "normal"))
     turtle.penup()
-    turtle.goto(turtle.xcor() + 24, turtle.ycor())
-    if index == 14:
+    turtle.goto(turtle.xcor() + 20, turtle.ycor())
+    if index == 19:
       turtle.goto(-275,-50)
+    if index == 47:
+      turtle.goto(-275,-100)
+    if index == 75:
+      turtle.goto(-275,-150)
+    if index == 103:
+      turtle.goto(-60,-200)
     sys.stdout.flush()
 
 sleep(1)
