@@ -6,7 +6,6 @@ from time import sleep
 wn = turtle.Screen()
 wn.setup(600,600)
 wn.bgpic("sky.gif")
-# message = "Hello"
 
 turtle = turtle.Turtle()
 turtle.hideturtle()
@@ -45,13 +44,13 @@ for char in words:
     turtle.penup()
     turtle.goto(turtle.xcor() + 20, turtle.ycor())
     if index == 19:
-      turtle.goto(-275,40)
+      turtle.goto(-275, 40)
     if index == 47:
-      turtle.goto(-275,-10)
+      turtle.goto(-275, -10)
     if index == 75:
-      turtle.goto(-275,-60)
+      turtle.goto(-275, -60)
     if index == 103:
-      turtle.goto(-60,-110)
+      turtle.goto(-60, -110)
     sys.stdout.flush()
 
 sleep(1)
