@@ -5,6 +5,7 @@ import turtle
 import time
 import random
 from random_words import RandomWords
+import winsound
 
 s = turtle.Screen()
 s.setup(600,600)
@@ -63,6 +64,7 @@ def game_over():
     cloud.goto(0, -150)
     i = 0
     cloud.onclick(next_word)
+    winsound.PlaySound('ding3.wav',winsound.SND_FILENAME)
 
 
 # display countdown
@@ -172,6 +174,7 @@ def next_word():
         print(cleared)
         initialize(strings[i])
         i += 1
+
 
 next_word()
 
