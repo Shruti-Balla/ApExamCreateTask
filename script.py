@@ -2,10 +2,11 @@
 
 # import modules turtle, time, random, RandomWords
 import turtle
-import time
+from time import sleep
 import random
+import os
+import sys
 from random_words import RandomWords
-import winsound
 
 s = turtle.Screen()
 s.setup(600,600)
@@ -28,6 +29,10 @@ letter = ""
 words_typed = 0
 cleared = True
 gameover = False
+message = turtle.Turtle()
+cloud = turtle.Turtle()
+
+
 
 
 # begin game - make the first letter blue
@@ -36,68 +41,15 @@ def begin_game():
     global letter
     global cleared
 
+    if gameover == True:
+        s.clear()
+        s.bgpic('sky.gif')
     index = 0
     turtles[0].clear()
     turtles[0].color("blue")
     turtles[0].write(characters[0], align="center", font=("Arial", 30, "normal", "underline"))
     letter = characters[0]
     cleared = False
-
-# game over screen
-def game_over():
-    global i
-
-    # writes game over
-    message = turtle.Turtle()
-    s.clear()
-    s.bgpic('sky.gif')
-    message.write("GAME OVER!", align="center", font=("Times New Roman", 70, "normal"))
-
-    # displays total words typed
-    message.goto(0, -50)
-    message.write("You typed a grand total of " + str(words_typed) + " words!", align="center", font=("Times New Roman", 20, "normal"))
-
-    # play again button
-    cloud = turtle.Turtle()
-    cloud.shape("cloud.gif")
-    cloud.penup()
-    cloud.goto(0, -150)
-    i = 0
-    cloud.onclick(next_word)
-    winsound.PlaySound('ding3.wav',winsound.SND_FILENAME)
-
-
-# display countdown
-timer_turtle = turtle.Turtle()
-main = turtle.Turtle()
-main.hideturtle()
-main.penup()
-main.goto(125, 200)
-main.pendown()
-main.write("Time: ", font=("Times New Roman", 30, "normal"))
-timer_turtle.hideturtle()
-timer_turtle.color("Red")
-timer_turtle.penup()
-timer_turtle.goto(225, 200)
-timer_turtle.pendown()
-seconds = 10
-
-def update_countdown():
-    global seconds
-    timer_turtle.clear()
-    timer_turtle.write(str(seconds), font=("Times New Roman", 30, "normal"))
-    seconds -= 1
-    if seconds == -1:
-        gameover = True
-        game_over()
-    else:
-        s.ontimer(update_countdown, t=1000)
-
-    
-
-# create a timer - CHANGE IT!!!!!!!!!!
-s.ontimer(update_countdown, t=1000)
-    
 
 # puts writers and characters at corresponding indexes
 def initialize(new_string):
@@ -120,16 +72,148 @@ def initialize(new_string):
     # writes a character at the corresponding index of the writer
     for writer in turtles:
         if gameover == True:
-            s.clear()
-            s.bgpic('sky.gif')
-        writer.goto(initial_x, initial_y) # change location
-        writer.write(characters[index], align="center", font=("Arial", 30, "normal"))
-        index += 1
-        initial_x += 25
+            pass
+        else: 
+            writer.goto(initial_x, initial_y) # change location
+            writer.write(characters[index], align="center", font=("Arial", 30, "normal"))
+            index += 1
+            initial_x += 25
     initial_x = random.randint(-300, 10)
     initial_y = random.randint(-300, 10)
     begin_game() # writes word
     
+# move on to the next word in the list
+i = 0
+def next_word(x=2,y=3):
+    global i
+    global message
+    global cloud
+    global cleared
+
+    while cleared:
+        if gameover == True:
+            for writer in turtles:
+                writer.clear()
+            s.clear()
+            s.bgpic('sky.gif')
+        message.clear()
+        cloud.hideturtle()
+        print(strings[i])
+        initialize(strings[i])
+        print(cleared)
+        i += 1   
+
+# game over screen
+def game_over():
+    global i
+    global gameover
+    global cleared
+    global message
+    global cloud
+
+    # writes game over
+    s.clear()
+    s.bgpic('sky.gif')
+    message.write("GAME OVER!", align="center", font=("Times New Roman", 70, "normal"))
+
+    # displays total words typed
+    message.goto(0, -50)
+    message.write("You typed a grand total of " + str(words_typed) + " words!", align="center", font=("Times New Roman", 20, "normal"))
+
+    # play again button
+    cloud.shape("cloud.gif")
+    cloud.penup()
+    cloud.goto(0, -150)
+    cloud.showturtle()
+    gameover = False
+    cleared = True
+    cloud.onclick(next_word)
+
+
+# display countdown
+timer_turtle = turtle.Turtle()
+main = turtle.Turtle()
+main.hideturtle()
+main.penup()
+main.goto(125, 200)
+main.pendown()
+main.write("Time: ", font=("Times New Roman", 30, "normal"))
+timer_turtle.hideturtle()
+timer_turtle.color("Red")
+timer_turtle.penup()
+timer_turtle.goto(225, 200)
+timer_turtle.pendown()
+seconds = 10
+
+def update_countdown():
+    global seconds
+    global gameover
+
+    timer_turtle.clear()
+    timer_turtle.write(str(seconds), font=("Times New Roman", 30, "normal"))
+    seconds -= 1
+    if seconds == -1:
+        gameover = True
+        game_over()
+    else:
+        s.ontimer(update_countdown, t=1000)
+
+
+# create a timer
+'''intro_turtle = turtle.Turtle()
+intro_turtle.hideturtle()
+
+word_index = 0
+intro = "Hello! Welcome to our typing game!"
+
+intro_turtle.penup()
+intro_turtle.goto(-150, 30)
+
+for char in intro:
+    word_index += 1
+    sleep(0.02)
+    intro_turtle.pendown()
+    intro_turtle.write(char, align="center", font=("Times New Roman", 25, "normal"))
+    intro_turtle.penup()
+    intro_turtle.goto(intro_turtle.xcor() + 20, intro_turtle.ycor())
+    if word_index == 14:
+      intro_turtle.goto(-225, -20)
+    sys.stdout.flush()
+
+sleep(1)
+intro_turtle.clear()
+
+word_index = 0
+intro = "Instructions: type as many words as accurately as you can before the timer runs out. Good luck and have fun!"
+
+intro_turtle.penup()
+intro_turtle.goto(-200, 90)
+
+for char in intro:
+    word_index += 1
+    sleep(0.02)
+    intro_turtle.pendown()
+    intro_turtle.write(char, align="center", font=("Times New Roman", 25, "normal"))
+    intro_turtle.penup()
+    intro_turtle.goto(intro_turtle.xcor() + 20, intro_turtle.ycor())
+    if word_index == 19:
+      intro_turtle.goto(-275,40)
+    if word_index == 47:
+      intro_turtle.goto(-275,-10)
+    if word_index == 75:
+      intro_turtle.goto(-275,-60)
+    if word_index == 103:
+      intro_turtle.goto(-60,-110)
+    sys.stdout.flush()
+
+sleep(1)
+intro_turtle.clear()'''
+next_word()
+s.ontimer(update_countdown, t=1000)
+
+    
+
+
 
 
 def update_letter(correct_letter, letter_typed):
@@ -140,8 +224,11 @@ def update_letter(correct_letter, letter_typed):
    
     # if the correct letter is the letter typed
     if correct_letter.lower() == letter_typed:
+        if gameover == True:
+            s.clear()
+            s.bgpic('sky.gif')
         turtles[index].clear()
-        turtles[index].color("green")
+        turtles[index].color("plum")
         turtles[index].write(correct_letter, align="center", font=("Arial", 30, "normal"))
         index += 1
 
@@ -162,21 +249,13 @@ def update_letter(correct_letter, letter_typed):
             
     # if the correct letter is not the letter typed
     else:
+        if gameover == True:
+            s.clear()
+            s.bgpic('sky.gif')
         turtles[index].clear()
         turtles[index].color("red")
         turtles[index].write(correct_letter, align="center", font=("Arial", 30, "normal", "underline", "bold"))
 
-# move on to the next word in the list
-i = 0
-def next_word():
-    global i
-    while cleared:
-        print(cleared)
-        initialize(strings[i])
-        i += 1
-
-
-next_word()
 
 # function for updating each letter
 def trigger_update_a():   
