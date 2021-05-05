@@ -30,6 +30,11 @@ letter = ""
 words_typed = 0
 cleared = True
 gameover = False
+message = turtle.Turtle()
+cloud = turtle.Turtle()
+last_string = ""
+
+
 
 
 # begin game - make the first letter blue
@@ -37,13 +42,19 @@ def begin_game():
     global index
     global letter
     global cleared
-
+    global strings
+    global last_string
+    
     index = 0
     turtles[0].clear()
     turtles[0].color("blue")
     turtles[0].write(characters[0], align="center", font=("Arial", 30, "normal", "underline"))
     letter = characters[0]
     cleared = False
+    if gameover == True:
+        s.clear()
+        s.bgpic('sky.gif')
+        last_string = strings[i-1]
 
 # puts writers and characters at corresponding indexes
 def initialize(new_string):
@@ -51,9 +62,11 @@ def initialize(new_string):
     global initial_x
     global initial_y
     global index
+    global cleared
+    global last_string
 
     index = 0
-
+    print(new_string)
     for character in new_string:
         string = new_string
         writer = turtle.Turtle()
@@ -66,12 +79,19 @@ def initialize(new_string):
     # writes a character at the corresponding index of the writer
     for writer in turtles:
         if gameover == True:
-            s.clear()
-            s.bgpic('sky.gif')
-        writer.goto(initial_x, initial_y) # change location
-        writer.write(characters[index], align="center", font=("Arial", 30, "normal"))
-        index += 1
-        initial_x += 25
+            last_string = strings[i-1]
+            writer.clear()
+            break
+        else:
+            print(new_string[index]) 
+            writer.goto(initial_x, initial_y) # change location
+            writer.write(characters[index], align="center", font=("Arial", 30, "normal"))
+            index += 1
+            initial_x += 25
+            if gameover == True:
+                last_string = strings[i-1]
+                writer.clear()
+                break
     initial_x = random.randint(-300, 10)
     initial_y = random.randint(-300, 10)
     begin_game() # writes word
@@ -80,19 +100,33 @@ def initialize(new_string):
 i = 0
 def next_word(x=2,y=3):
     global i
+    global message
+    global cloud
+    global cleared
+
     while cleared:
         if gameover == True:
+            for writer in turtles:
+                writer.clear()
             s.clear()
             s.bgpic('sky.gif')
+        if strings[i-1] == last_string:
+            i += 1
+        message.clear()
+        cloud.hideturtle()
         initialize(strings[i])
         i += 1   
 
 # game over screen
 def game_over():
     global i
+    global gameover
+    global cleared
+    global message
+    global cloud
+    global index
 
     # writes game over
-    message = turtle.Turtle()
     s.clear()
     s.bgpic('sky.gif')
     message.write("GAME OVER!", align="center", font=("Times New Roman", 70, "normal"))
@@ -102,11 +136,15 @@ def game_over():
     message.write("You typed a grand total of " + str(words_typed) + " words!", align="center", font=("Times New Roman", 20, "normal"))
 
     # play again button
-    cloud = turtle.Turtle()
     cloud.shape("cloud.gif")
     cloud.penup()
     cloud.goto(0, -150)
-    i = 0
+    cloud.showturtle()
+    gameover = False
+    cleared = True
+    i += 1
+    turtles.clear() # clears the writers
+    characters.clear() # clears the character list
     cloud.onclick(next_word)
 
 
@@ -127,20 +165,23 @@ seconds = 10
 
 def update_countdown():
     global seconds
+    global gameover
+    global last_string
+
     timer_turtle.clear()
     timer_turtle.write(str(seconds), font=("Times New Roman", 30, "normal"))
     seconds -= 1
     if seconds == -1:
         gameover = True
         game_over()
-        winsound.PlaySound('Ping2.wav', winsound.SND_FILENAME)
-
+        #winsound.PlaySound('Ping2.wav', winsound.SND_FILENAME)
+        last_string = strings[i]
     else:
         s.ontimer(update_countdown, t=1000)
 
 
 # create a timer
-intro_turtle = turtle.Turtle()
+'''intro_turtle = turtle.Turtle()
 intro_turtle.hideturtle()
 
 word_index = 0
@@ -187,7 +228,7 @@ for char in intro:
     sys.stdout.flush()
 
 sleep(1)
-intro_turtle.clear()
+intro_turtle.clear()'''
 next_word()
 s.ontimer(update_countdown, t=1000)
 
