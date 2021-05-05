@@ -7,6 +7,7 @@ import random
 import os
 import sys
 from random_words import RandomWords
+import winsound
 
 s = turtle.Screen()
 s.setup(600,600)
@@ -132,6 +133,8 @@ def update_countdown():
     if seconds == -1:
         gameover = True
         game_over()
+        winsound.PlaySound('Ping2.wav', winsound.SND_FILENAME)
+
     else:
         s.ontimer(update_countdown, t=1000)
 
