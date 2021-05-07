@@ -1,4 +1,4 @@
-#-----TYPING GAME NAME TBD-----
+#-----TYPING GAME-----
 
 # import modules turtle, time, random, RandomWords
 import turtle
@@ -7,12 +7,15 @@ import random
 import os
 import sys
 from random_words import RandomWords
+import winsound
 
 s = turtle.Screen()
-s.setup(600,600)
+s.setup(650,650)
 s.bgpic('sky.gif')
 
-s.addshape('cloud.gif')
+s.addshape('start_cloud.gif')
+s.addshape('end_cloud.gif')
+
 
 # initialize variables
 rw = RandomWords()
@@ -30,9 +33,18 @@ words_typed = 0
 cleared = True
 gameover = False
 message = turtle.Turtle()
-cloud = turtle.Turtle()
 last_string = ""
 
+# cloud configuration
+start_cloud = turtle.Turtle()
+start_cloud.shape("start_cloud.gif")
+start_cloud.hideturtle()
+
+end_cloud = turtle.Turtle()
+end_cloud.shape('end_cloud.gif')
+end_cloud.hideturtle()
+end_cloud.penup()
+end_cloud.goto(0, -150)
 
 
 
@@ -91,8 +103,8 @@ def initialize(new_string):
                 last_string = strings[i-1]
                 writer.clear()
                 break
-    initial_x = random.randint(-300, 10)
-    initial_y = random.randint(-300, 10)
+    initial_x = random.randint(-285, 10)
+    initial_y = random.randint(-285, 10)
     begin_game() # writes word
     
 # move on to the next word in the list
@@ -100,7 +112,8 @@ i = 0
 def next_word(x=2,y=3):
     global i
     global message
-    global cloud
+    global start_cloud
+    global end_cloud
     global cleared
 
     while cleared:
@@ -111,8 +124,12 @@ def next_word(x=2,y=3):
             s.bgpic('sky.gif')
         if strings[i-1] == last_string:
             i += 1
+        if i == 0:
+            s.ontimer(update_countdown, t=1000)
         message.clear()
-        cloud.hideturtle()
+        intro_turtle.clear()
+        start_cloud.hideturtle()
+        end_cloud.hideturtle()
         initialize(strings[i])
         i += 1   
 
@@ -122,7 +139,7 @@ def game_over():
     global gameover
     global cleared
     global message
-    global cloud
+    global end_cloud
     global index
 
     # writes game over
@@ -135,16 +152,14 @@ def game_over():
     message.write("You typed a grand total of " + str(words_typed) + " words!", align="center", font=("Times New Roman", 20, "normal"))
 
     # play again button
-    cloud.shape("cloud.gif")
-    cloud.penup()
-    cloud.goto(0, -150)
-    cloud.showturtle()
+    print(end_cloud)
+    end_cloud.showturtle()
     gameover = False
     cleared = True
     i += 1
     turtles.clear() # clears the writers
     characters.clear() # clears the character list
-    cloud.onclick(next_word)
+    end_cloud.onclick(next_word)
 
 
 # display countdown
@@ -173,14 +188,14 @@ def update_countdown():
     if seconds == -1:
         gameover = True
         game_over()
+        #winsound.PlaySound('Ping2.wav', winsound.SND_FILENAME)
         last_string = strings[i]
-        print("last string: " + strings[i])
     else:
         s.ontimer(update_countdown, t=1000)
 
 
 # create a timer
-'''intro_turtle = turtle.Turtle()
+intro_turtle = turtle.Turtle()
 intro_turtle.hideturtle()
 
 word_index = 0
@@ -227,9 +242,11 @@ for char in intro:
     sys.stdout.flush()
 
 sleep(1)
-intro_turtle.clear()'''
-next_word()
-s.ontimer(update_countdown, t=1000)
+start_cloud.penup()
+start_cloud.goto(0, -150)
+start_cloud.showturtle()
+start_cloud.onclick(next_word)
+
 
     
 
@@ -358,32 +375,32 @@ def trigger_update_z():
 
 
 # trigger the next letter with each letter of the alphabet
-s.onkeypress(trigger_update_a, "a")
-s.onkeypress(trigger_update_b, "b")
-s.onkeypress(trigger_update_c, "c")
-s.onkeypress(trigger_update_d, "d")
-s.onkeypress(trigger_update_e, "e")
-s.onkeypress(trigger_update_f, "f")
-s.onkeypress(trigger_update_g, "g")
-s.onkeypress(trigger_update_h, "h")
-s.onkeypress(trigger_update_i, "i")
-s.onkeypress(trigger_update_j, "j")
-s.onkeypress(trigger_update_k, "k")
-s.onkeypress(trigger_update_l, "l")
-s.onkeypress(trigger_update_m, "m")
-s.onkeypress(trigger_update_n, "n")
-s.onkeypress(trigger_update_o, "o")
-s.onkeypress(trigger_update_p, "p")
-s.onkeypress(trigger_update_q, "q")
-s.onkeypress(trigger_update_r, "r")
-s.onkeypress(trigger_update_s, "s")
-s.onkeypress(trigger_update_t, "t")
-s.onkeypress(trigger_update_u, "u")
-s.onkeypress(trigger_update_v, "v")
-s.onkeypress(trigger_update_w, "w")
-s.onkeypress(trigger_update_x, "x")
-s.onkeypress(trigger_update_y, "y")
-s.onkeypress(trigger_update_z, "z")
+s.onkey(trigger_update_a, "a")
+s.onkey(trigger_update_b, "b")
+s.onkey(trigger_update_c, "c")
+s.onkey(trigger_update_d, "d")
+s.onkey(trigger_update_e, "e")
+s.onkey(trigger_update_f, "f")
+s.onkey(trigger_update_g, "g")
+s.onkey(trigger_update_h, "h")
+s.onkey(trigger_update_i, "i")
+s.onkey(trigger_update_j, "j")
+s.onkey(trigger_update_k, "k")
+s.onkey(trigger_update_l, "l")
+s.onkey(trigger_update_m, "m")
+s.onkey(trigger_update_n, "n")
+s.onkey(trigger_update_o, "o")
+s.onkey(trigger_update_p, "p")
+s.onkey(trigger_update_q, "q")
+s.onkey(trigger_update_r, "r")
+s.onkey(trigger_update_s, "s")
+s.onkey(trigger_update_t, "t")
+s.onkey(trigger_update_u, "u")
+s.onkey(trigger_update_v, "v")
+s.onkey(trigger_update_w, "w")
+s.onkey(trigger_update_x, "x")
+s.onkey(trigger_update_y, "y")
+s.onkey(trigger_update_z, "z")
 
 # listen for keyboard press and wait until user closes out of the tab
 s.listen()
