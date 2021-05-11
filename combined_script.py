@@ -194,7 +194,7 @@ timer_turtle.color("Red")
 timer_turtle.penup()
 timer_turtle.goto(225, 200)
 timer_turtle.pendown()
-seconds = 30
+seconds = 20
 
 def update_countdown():
     global seconds
