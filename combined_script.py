@@ -127,6 +127,7 @@ def game_over():
     global cloud
     global index
     global seconds
+    global main
 
     # writes game over
     s.clear()
@@ -135,8 +136,8 @@ def game_over():
 
     # displays total words typed
     message.goto(0, -50)
-    message.write("You typed a grand total of " + str(words_typed) + " words!", align="center", font=("Times New Roman", 20, "normal"))
-'''
+    message.write("You typed a grand total of " + str(words_typed) + " word(s)!", align="center", font=("Times New Roman", 20, "normal"))
+
     # play again button
     cloud.shape("cloud.gif")
     cloud.penup()
@@ -147,6 +148,8 @@ def game_over():
     i += 1
     turtles.clear() # clears the writers
     characters.clear() # clears the character list
+    main.write("Time: ", font=("Times New Roman", 30, "normal"))
+    seconds = 20
     cloud.onclick(next_word)
     s.onkeypress(trigger_update_a, "a")
     s.onkeypress(trigger_update_b, "b")
@@ -176,7 +179,7 @@ def game_over():
     s.onkeypress(trigger_update_z, "z")
 
     s.ontimer(update_countdown, t=1000)
-'''
+
 
 # display countdown
 timer_turtle = turtle.Turtle()
@@ -191,7 +194,7 @@ timer_turtle.color("Red")
 timer_turtle.penup()
 timer_turtle.goto(225, 200)
 timer_turtle.pendown()
-seconds = 10
+seconds = 30
 
 def update_countdown():
     global seconds
@@ -204,19 +207,22 @@ def update_countdown():
     if seconds == -1:
         gameover = True
         game_over()
-        winsound.PlaySound('Ping2.wav', winsound.SND_FILENAME)
+        #winsound.PlaySound('Ping2.wav', winsound.SND_FILENAME)
         last_string = strings[i]
     else:
         s.ontimer(update_countdown, t=1000)
 
 
 # create a timer
-'''intro_turtle = turtle.Turtle()
+
+intro_turtle = turtle.Turtle()
 intro_turtle.hideturtle()
 word_index = 0
 intro = "Hello! Welcome to our typing game!"
 intro_turtle.penup()
 intro_turtle.goto(-150, 30)
+
+# first intro message
 for char in intro:
     word_index += 1
     sleep(0.02)
@@ -233,6 +239,8 @@ word_index = 0
 intro = "Instructions: type as many words as accurately as you can before the timer runs out. Good luck and have fun!"
 intro_turtle.penup()
 intro_turtle.goto(-200, 90)
+
+# second intro message
 for char in intro:
     word_index += 1
     sleep(0.02)
@@ -250,7 +258,7 @@ for char in intro:
       intro_turtle.goto(-60,-110)
     sys.stdout.flush()
 sleep(1)
-intro_turtle.clear()'''
+intro_turtle.clear()
 next_word()
 s.ontimer(update_countdown, t=1000)
 
@@ -411,3 +419,9 @@ s.onkeypress(trigger_update_z, "z")
 # listen for keyboard press and wait until user closes out of the tab
 s.listen()
 s.mainloop()
+
+# Credit Sources
+
+# cloud.gif:
+# Ping2.wav:
+# sky.jpg: 
