@@ -149,7 +149,7 @@ def game_over():
     turtles.clear() # clears the writers
     characters.clear() # clears the character list
     main.write("Time: ", font=("Times New Roman", 30, "normal"))
-    seconds = 20
+    seconds = 15
     cloud.onclick(next_word)
     s.onkeypress(trigger_update_a, "a")
     s.onkeypress(trigger_update_b, "b")
@@ -194,7 +194,7 @@ timer_turtle.color("Red")
 timer_turtle.penup()
 timer_turtle.goto(225, 200)
 timer_turtle.pendown()
-seconds = 20
+seconds = 15
 
 def update_countdown():
     global seconds
