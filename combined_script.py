@@ -8,6 +8,7 @@ import os
 import sys
 from random_words import RandomWords
 import winsound
+#sound credit goes to headspace
 
 s = turtle.Screen()
 s.setup(600,600)
@@ -125,6 +126,7 @@ def game_over():
     global message
     global cloud
     global index
+    global seconds
 
     # writes game over
     s.clear()
@@ -134,7 +136,7 @@ def game_over():
     # displays total words typed
     message.goto(0, -50)
     message.write("You typed a grand total of " + str(words_typed) + " words!", align="center", font=("Times New Roman", 20, "normal"))
-
+'''
     # play again button
     cloud.shape("cloud.gif")
     cloud.penup()
@@ -146,7 +148,35 @@ def game_over():
     turtles.clear() # clears the writers
     characters.clear() # clears the character list
     cloud.onclick(next_word)
+    s.onkeypress(trigger_update_a, "a")
+    s.onkeypress(trigger_update_b, "b")
+    s.onkeypress(trigger_update_c, "c")
+    s.onkeypress(trigger_update_d, "d")
+    s.onkeypress(trigger_update_e, "e")
+    s.onkeypress(trigger_update_f, "f")
+    s.onkeypress(trigger_update_g, "g")
+    s.onkeypress(trigger_update_h, "h")
+    s.onkeypress(trigger_update_i, "i")
+    s.onkeypress(trigger_update_j, "j")
+    s.onkeypress(trigger_update_k, "k")
+    s.onkeypress(trigger_update_l, "l")
+    s.onkeypress(trigger_update_m, "m")
+    s.onkeypress(trigger_update_n, "n")
+    s.onkeypress(trigger_update_o, "o")
+    s.onkeypress(trigger_update_p, "p")
+    s.onkeypress(trigger_update_q, "q")
+    s.onkeypress(trigger_update_r, "r")
+    s.onkeypress(trigger_update_s, "s")
+    s.onkeypress(trigger_update_t, "t")
+    s.onkeypress(trigger_update_u, "u")
+    s.onkeypress(trigger_update_v, "v")
+    s.onkeypress(trigger_update_w, "w")
+    s.onkeypress(trigger_update_x, "x")
+    s.onkeypress(trigger_update_y, "y")
+    s.onkeypress(trigger_update_z, "z")
 
+    s.ontimer(update_countdown, t=1000)
+'''
 
 # display countdown
 timer_turtle = turtle.Turtle()
@@ -174,7 +204,7 @@ def update_countdown():
     if seconds == -1:
         gameover = True
         game_over()
-        #winsound.PlaySound('Ping2.wav', winsound.SND_FILENAME)
+        winsound.PlaySound('Ping2.wav', winsound.SND_FILENAME)
         last_string = strings[i]
     else:
         s.ontimer(update_countdown, t=1000)
@@ -183,13 +213,10 @@ def update_countdown():
 # create a timer
 '''intro_turtle = turtle.Turtle()
 intro_turtle.hideturtle()
-
 word_index = 0
 intro = "Hello! Welcome to our typing game!"
-
 intro_turtle.penup()
 intro_turtle.goto(-150, 30)
-
 for char in intro:
     word_index += 1
     sleep(0.02)
@@ -200,16 +227,12 @@ for char in intro:
     if word_index == 14:
       intro_turtle.goto(-225, -20)
     sys.stdout.flush()
-
 sleep(1)
 intro_turtle.clear()
-
 word_index = 0
 intro = "Instructions: type as many words as accurately as you can before the timer runs out. Good luck and have fun!"
-
 intro_turtle.penup()
 intro_turtle.goto(-200, 90)
-
 for char in intro:
     word_index += 1
     sleep(0.02)
@@ -226,7 +249,6 @@ for char in intro:
     if word_index == 103:
       intro_turtle.goto(-60,-110)
     sys.stdout.flush()
-
 sleep(1)
 intro_turtle.clear()'''
 next_word()
