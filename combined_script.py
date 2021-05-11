@@ -1,4 +1,4 @@
-#-----TYPING GAME NAME TBD-----
+#-----TYPING GAME-----
 
 # import modules turtle, time, random, RandomWords
 import turtle
