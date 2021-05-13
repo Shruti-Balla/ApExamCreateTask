@@ -422,6 +422,6 @@ s.mainloop()
 
 # Credit Sources
 
-# cloud.gif:
-# Ping2.wav:
-# sky.jpg: 
+# cloud.gif:https://pngfree.io/cartoon-white-png-7259
+# Ping2.wav:headspace.com
+# sky.jpg:https://pngtree.com/freebackground/summer-landscape-vector-illustration-with-blue-sky-clouds-sun-green-meadow-flowers-and-trees-suitable-for-kids-background_1170497.html
