@@ -7,8 +7,7 @@ import random
 import os
 import sys
 from random_words import RandomWords
-import winsound
-#sound credit goes to headspace
+
 
 s = turtle.Screen()
 s.setup(600,600)
@@ -211,7 +210,6 @@ def update_countdown():
     if seconds == -1:
         gameover = True
         game_over()
-        #winsound.PlaySound('Ping2.wav', winsound.SND_FILENAME)
         last_string = strings[i]
     else:
         s.ontimer(update_countdown, t=1000)
@@ -427,5 +425,4 @@ s.mainloop()
 # Credit Sources
 
 # cloud.gif:https://pngfree.io/cartoon-white-png-7259
-# Ping2.wav:headspace.com
 # sky.jpg:https://pngtree.com/freebackground/summer-landscape-vector-illustration-with-blue-sky-clouds-sun-green-meadow-flowers-and-trees-suitable-for-kids-background_1170497.html
