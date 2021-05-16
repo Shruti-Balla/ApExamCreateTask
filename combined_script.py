@@ -32,7 +32,9 @@ words_typed = 0
 cleared = True
 gameover = False
 message = turtle.Turtle()
+message.hideturtle()
 cloud = turtle.Turtle()
+cloud.hideturtle()
 last_string = ""
 
 
@@ -115,6 +117,7 @@ def next_word(x=2,y=3):
             i += 1
         message.clear()
         cloud.hideturtle()
+        cloud.shape("circle")
         initialize(strings[i])
         i += 1   
 
@@ -132,6 +135,7 @@ def game_over():
     # writes game over
     s.clear()
     s.bgpic('sky.gif')
+    message.goto(0, 0)
     message.write("GAME OVER!", align="center", font=("Times New Roman", 70, "normal"))
 
     # displays total words typed
